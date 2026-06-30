@@ -6,14 +6,16 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
     var body: some View {
-        Text("FocusQuest")
-            .padding()
+        RootView()
     }
 }
 
 #Preview {
     ContentView()
+        .modelContainer(for: [Character.self, FocusSession.self, InventoryItem.self,
+                              Achievement.self, Location.self], inMemory: true)
 }
