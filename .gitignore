@@ -1,0 +1,53 @@
+# Xcode
+*.xcuserstate
+*.xcuserdatad/
+xcuserdata/
+*.xcscmblueprint
+*.xccheckout
+DerivedData/
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Packages/
+Package.resolved
+
+# CocoaPods
+Pods/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# Editors / tools
+.warp/
+.vscode/
+.idea/
+.claude/settings.local.json
+
+# Secrets
+*.env
+*.xcconfig.local
+Secrets.swift
+*.p12
+*.mobileprovision
+*.cer
+GoogleService-Info.plist
+
+# Local docs
+PROJECT_DOCS.md
+
+# Misc
+*.log
+*.tmp
+.cache/
