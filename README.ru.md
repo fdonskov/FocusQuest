@@ -17,21 +17,22 @@ Pomodoro-таймер с RPG-геймификацией в стиле тёмно
 </p>
 
 <p align="center">
-<img src="docs/screenshots/timer.png" width="280" alt="Экран таймера">
+<img src="docs/screenshots/demo.gif" width="280" alt="Приложение в движении"><br>
+<sub>В движении</sub>
 </p>
 
 ## Экраны
 
 <table>
   <tr>
+    <td align="center"><img src="docs/screenshots/timer.png" width="220"><br><sub>Таймер</sub></td>
     <td align="center"><img src="docs/screenshots/map.png" width="220"><br><sub>Карта странствий</sub></td>
     <td align="center"><img src="docs/screenshots/inventory.png" width="220"><br><sub>Инвентарь</sub></td>
-    <td align="center"><img src="docs/screenshots/achievements.png" width="220"><br><sub>Достижения</sub></td>
   </tr>
   <tr>
+    <td align="center"><img src="docs/screenshots/achievements.png" width="220"><br><sub>Достижения</sub></td>
     <td align="center"><img src="docs/screenshots/settings.png" width="220"><br><sub>Настройки</sub></td>
     <td align="center"><img src="docs/screenshots/reward.png" width="220"><br><sub>Награда за сессию</sub></td>
-    <td align="center"><img src="docs/screenshots/demo.gif" width="220"><br><sub>В движении</sub></td>
   </tr>
 </table>
 

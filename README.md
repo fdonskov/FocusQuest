@@ -17,21 +17,22 @@ loot and achievements. A lofi ambient track plays while you focus.
 </p>
 
 <p align="center">
-<img src="docs/screenshots/timer.png" width="280" alt="Timer screen">
+<img src="docs/screenshots/demo.gif" width="280" alt="App in motion"><br>
+<sub>In motion</sub>
 </p>
 
 ## Screens
 
 <table>
   <tr>
+    <td align="center"><img src="docs/screenshots/timer.png" width="220"><br><sub>Timer</sub></td>
     <td align="center"><img src="docs/screenshots/map.png" width="220"><br><sub>Wanderer's Map</sub></td>
     <td align="center"><img src="docs/screenshots/inventory.png" width="220"><br><sub>Inventory</sub></td>
-    <td align="center"><img src="docs/screenshots/achievements.png" width="220"><br><sub>Achievements</sub></td>
   </tr>
   <tr>
+    <td align="center"><img src="docs/screenshots/achievements.png" width="220"><br><sub>Achievements</sub></td>
     <td align="center"><img src="docs/screenshots/settings.png" width="220"><br><sub>Settings</sub></td>
     <td align="center"><img src="docs/screenshots/reward.png" width="220"><br><sub>Session reward</sub></td>
-    <td align="center"><img src="docs/screenshots/demo.gif" width="220"><br><sub>In motion</sub></td>
   </tr>
 </table>
 
