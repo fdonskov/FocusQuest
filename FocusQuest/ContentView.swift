@@ -16,6 +16,7 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environment(AppSettings())
         .modelContainer(for: [Character.self, FocusSession.self, InventoryItem.self,
                               Achievement.self, Location.self], inMemory: true)
 }

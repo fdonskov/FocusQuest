@@ -41,4 +41,29 @@ struct StatsCalculatorTests {
         let stats = StatsCalculator.stats(from: sessions, calendar: calendar, now: now)
         #expect(stats.streakDays == 0)
     }
+
+    @Test func dailyFocusMinutesBucketsByDayIncludingEmptyDays() {
+        let now = Date(timeIntervalSinceReferenceDate: 1_000_000)
+        let sessions = [
+            FocusSession(startDate: day(0, from: now), durationMinutes: 25, wasCompleted: true),
+            FocusSession(startDate: day(0, from: now), durationMinutes: 15, wasCompleted: true),
+            FocusSession(startDate: day(-2, from: now), durationMinutes: 50, wasCompleted: true),
+            FocusSession(startDate: day(0, from: now), durationMinutes: 25, wasCompleted: false),
+        ]
+        let week = StatsCalculator.dailyFocusMinutes(from: sessions, days: 7, calendar: calendar, now: now)
+        #expect(week.count == 7)
+        #expect(week.last?.minutes == 40)   // today: 25 + 15, incomplete ignored
+        #expect(week[4].minutes == 50)      // two days ago (index 6 - 2)
+        #expect(week.first?.minutes == 0)   // six days ago, empty
+    }
+
+    @Test func dailyFocusMinutesIsOldestFirst() {
+        let now = Date(timeIntervalSinceReferenceDate: 1_000_000)
+        let week = StatsCalculator.dailyFocusMinutes(from: [], days: 7, calendar: calendar, now: now)
+        #expect(week.count == 7)
+        #expect(week.allSatisfy { $0.minutes == 0 })
+        for i in 1..<week.count {
+            #expect(week[i - 1].date < week[i].date)
+        }
+    }
 }

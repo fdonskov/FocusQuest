@@ -10,6 +10,8 @@ import SwiftData
 
 @main
 struct FocusQuestApp: App {
+    @State private var settings = AppSettings()
+
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Character.self,
@@ -30,6 +32,7 @@ struct FocusQuestApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(settings)
         }
         .modelContainer(sharedModelContainer)
     }

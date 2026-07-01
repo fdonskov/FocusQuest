@@ -2,10 +2,11 @@ import SwiftUI
 import SwiftData
 
 struct InventoryView: View {
+    @Environment(AppSettings.self) private var settings
     @Query(sort: \InventoryItem.obtainedDate, order: .reverse) private var items: [InventoryItem]
     @State private var filter: Rarity?
 
-    private let columns = [GridItem(.adaptive(minimum: 150), spacing: 14)]
+    private let columns = [GridItem(.flexible(), spacing: 14), GridItem(.flexible(), spacing: 14)]
 
     private var filtered: [InventoryItem] {
         guard let filter else { return items }
@@ -18,24 +19,33 @@ struct InventoryView: View {
                 filterBar
                 content
             }
-            .navigationTitle("Инвентарь")
+            .screenBackground()
+            .navigationTitle(settings.t("inv.title"))
         }
     }
 
     @ViewBuilder
     private var content: some View {
         if filtered.isEmpty {
-            ContentUnavailableView("Пока пусто", systemImage: "bag",
-                                   description: Text("Завершайте фокус-сессии, чтобы находить предметы"))
+            ContentUnavailableView(settings.t(items.isEmpty ? "inv.empty" : "inv.filterEmpty"),
+                                   systemImage: items.isEmpty ? "bag" : "line.3.horizontal.decrease.circle",
+                                   description: Text(items.isEmpty ? settings.t("inv.emptyHint") : ""))
                 .frame(maxHeight: .infinity)
         } else {
             ScrollView {
+                Text("\(items.count) \(settings.t("inv.items"))")
+                    .font(.ui(12))
+                    .foregroundStyle(Theme.textMuted)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 4)
                 LazyVGrid(columns: columns, spacing: 14) {
                     ForEach(filtered) { item in
-                        ItemCard(item: item)
+                        ItemCard(item: item, settings: settings)
                     }
                 }
-                .padding()
+                .padding(.horizontal, 20)
+                .padding(.bottom, 20)
             }
         }
     }
@@ -43,13 +53,14 @@ struct InventoryView: View {
     private var filterBar: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
-                FilterChip(title: "Все", isSelected: filter == nil) { filter = nil }
+                FilterChip(title: settings.t("filter.all"), isSelected: filter == nil) { filter = nil }
                 ForEach(Rarity.allCases, id: \.self) { rarity in
-                    FilterChip(title: rarity.title, isSelected: filter == rarity) { filter = rarity }
+                    FilterChip(title: settings.t("filter.\(rarity.rawValue)"),
+                               isSelected: filter == rarity) { filter = rarity }
                 }
             }
-            .padding(.horizontal)
-            .padding(.vertical, 8)
+            .padding(.horizontal, 20)
+            .padding(.vertical, 10)
         }
     }
 }
@@ -62,46 +73,59 @@ private struct FilterChip: View {
     var body: some View {
         Button(action: action) {
             Text(title)
-                .font(.subheadline.weight(.medium))
+                .font(.ui(15, weight: .medium))
                 .padding(.horizontal, 14)
                 .padding(.vertical, 8)
-                .background(isSelected ? AnyShapeStyle(Color.accentColor) : AnyShapeStyle(.ultraThinMaterial),
-                            in: Capsule())
-                .foregroundStyle(isSelected ? .white : .primary)
+                .foregroundStyle(isSelected ? .white : Theme.textSecondary)
         }
         .buttonStyle(.plain)
+        .glassCard(Capsule(), tint: isSelected ? Theme.purpleDeep : nil)
     }
 }
 
 private struct ItemCard: View {
     let item: InventoryItem
+    let settings: AppSettings
 
     var body: some View {
-        VStack(spacing: 10) {
-            Image(systemName: item.iconName)
-                .font(.system(size: 34))
-                .foregroundStyle(item.rarity.color)
-                .frame(height: 44)
-            Text(item.name)
-                .font(.subheadline.weight(.semibold))
+        VStack(spacing: 12) {
+            ZStack {
+                Circle()
+                    .fill(RadialGradient(colors: [item.rarity.color.opacity(0.45), .clear],
+                                         center: .center, startRadius: 1, endRadius: 38))
+                    .frame(width: 72, height: 72)
+                Image(systemName: item.iconName)
+                    .font(.system(size: 36))
+                    .foregroundStyle(item.rarity.color)
+            }
+            .frame(height: 48)
+
+            Text(settings.t("item.\(item.itemID)"))
+                .font(.ui(15, weight: .semibold))
+                .foregroundStyle(Theme.textPrimary)
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
-            Text(item.rarity.title)
-                .font(.caption)
+
+            Text(settings.t("rarity.\(item.rarity.rawValue)").uppercased())
+                .font(.ui(11, weight: .bold))
+                .tracking(0.5)
                 .foregroundStyle(item.rarity.color)
+                .padding(.horizontal, 10)
+                .padding(.vertical, 4)
+                .background(item.rarity.color.opacity(0.16), in: Capsule())
         }
         .frame(maxWidth: .infinity)
-        .padding()
-        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 18))
-        .overlay(
-            RoundedRectangle(cornerRadius: 18)
-                .strokeBorder(item.rarity.color.opacity(0.5), lineWidth: 1)
-        )
+        .padding(.vertical, 18)
+        .padding(.horizontal, 12)
+        .glassCard(cornerRadius: 18)
+        .overlay(RoundedRectangle(cornerRadius: 18)
+            .strokeBorder(item.rarity.color.opacity(0.3), lineWidth: 1))
     }
 }
 
 #Preview {
     InventoryView()
+        .environment(AppSettings())
         .modelContainer(for: [Character.self, FocusSession.self, InventoryItem.self,
                               Achievement.self, Location.self], inMemory: true)
 }

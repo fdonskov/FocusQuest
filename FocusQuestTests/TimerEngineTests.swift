@@ -73,4 +73,17 @@ struct TimerEngineTests {
         #expect(engine.state == .idle)
         #expect(engine.remaining == 120)
     }
+
+    // Mirrors the auto-reset TimerViewModel does after a session finishes.
+    @Test func stopAfterFinishResetsToFullIdle() {
+        let clock = Clock(Date(timeIntervalSinceReferenceDate: 0))
+        let engine = makeEngine(duration: 60, clock: clock)
+        engine.start()
+        clock.date.addTimeInterval(61)
+        engine.refresh()
+        #expect(engine.state == .finished)
+        engine.stop()
+        #expect(engine.state == .idle)
+        #expect(engine.remaining == 60)
+    }
 }

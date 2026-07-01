@@ -12,6 +12,7 @@ enum GameBootstrap {
     private static func ensureCharacter(in context: ModelContext) {
         let existing = (try? context.fetch(FetchDescriptor<Character>())) ?? []
         guard existing.isEmpty else { return }
-        context.insert(Character(name: "Герой", level: 1, currentXP: 0, xpToNextLevel: 100))
+        context.insert(Character(name: "Аркан", level: 1, currentXP: 0,
+                                 xpToNextLevel: 100, currentLocationID: "meadow"))
     }
 }

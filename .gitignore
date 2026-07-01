@@ -47,6 +47,9 @@ GoogleService-Info.plist
 # Local docs
 PROJECT_DOCS.md
 
+# Design handoff (локально)
+design_handoff_focusquest/
+
 # Misc
 *.log
 *.tmp
