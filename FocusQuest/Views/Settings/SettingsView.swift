@@ -16,8 +16,9 @@ struct SettingsView: View {
                     nameField
                     defaultSession
                     VStack(spacing: 12) {
-                        SettingToggle(icon: "forward.fill", title: settings.t("set.demo"),
-                                      subtitle: settings.t("set.demoH"), isOn: $settings.demoMode)
+                        // Demo mode toggle hidden for now (demoMode setting kept for later use).
+//                         SettingToggle(icon: "forward.fill", title: settings.t("set.demo"),
+//                                       subtitle: settings.t("set.demoH"), isOn: $settings.demoMode)
                         SettingToggle(icon: "speaker.wave.2.fill", title: settings.t("set.sound"),
                                       subtitle: settings.t("set.soundH"), isOn: $settings.sound)
                         SettingToggle(icon: "bell.fill", title: settings.t("set.notif"),

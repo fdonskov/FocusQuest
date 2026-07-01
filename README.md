@@ -1,19 +1,83 @@
-# FocusQuest
+<h1 align="center">FocusQuest</h1>
 
-Таймер фокус-сессий (Pomodoro) с элементами RPG: за выполненные сессии концентрации персонаж получает опыт, открываются локации, выпадают предметы и достижения.
+<p align="center"><sub><a href="README.md">English</a> · <a href="README.ru.md">Русский</a></sub></p>
 
-## Что внутри
+<p align="center">
+  <img src="https://img.shields.io/badge/iOS-17%2B-7C4CFF?logo=apple&logoColor=white" alt="iOS 17+">
+  <img src="https://img.shields.io/badge/macOS-14%2B-7C4CFF?logo=apple&logoColor=white" alt="macOS 14+">
+  <img src="https://img.shields.io/badge/Swift-5.9%2B-9B6BFF?logo=swift&logoColor=white" alt="Swift 5.9+">
+  <img src="https://img.shields.io/badge/Built%20with-SwiftUI-46E6FF" alt="Built with SwiftUI">
+  <img src="https://img.shields.io/badge/status-MVP-8B81AD" alt="Status: MVP">
+</p>
 
-- SwiftUI, SwiftData для хранения, CloudKit для синхронизации между iPhone и Mac.
-- Таймер считает оставшееся время от стартовой `Date`, а не накоплением тиков, чтобы корректно переживать сворачивание и блокировку экрана.
-- Локальные уведомления об окончании сессии и напоминания о стрике.
+<p align="center">
+A Pomodoro timer with RPG progression, wrapped in a dark-fantasy theme.<br>
+Finished focus sessions level up your character, unlock locations, and drop
+loot and achievements. A lofi ambient track plays while you focus.
+</p>
 
-Платформы: iOS 17+, macOS 14+.
+<p align="center">
+<img src="docs/screenshots/timer.png" width="280" alt="Timer screen">
+</p>
 
-## Сборка
+## Screens
 
-Открыть проект в Xcode и запустить нужный таргет. Внешних зависимостей нет.
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/map.png" width="220"><br><sub>Wanderer's Map</sub></td>
+    <td align="center"><img src="docs/screenshots/inventory.png" width="220"><br><sub>Inventory</sub></td>
+    <td align="center"><img src="docs/screenshots/achievements.png" width="220"><br><sub>Achievements</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/settings.png" width="220"><br><sub>Settings</sub></td>
+    <td align="center"><img src="docs/screenshots/reward.png" width="220"><br><sub>Session reward</sub></td>
+    <td align="center"><img src="docs/screenshots/demo.gif" width="220"><br><sub>In motion</sub></td>
+  </tr>
+</table>
 
-## Статус
+<!-- Screenshots and demo.gif go into docs/screenshots/ (see .gitkeep there). -->
 
-В разработке, MVP.
+## What it is
+
+An app for running focus sessions (the Pomodoro technique) with RPG elements.
+The idea is simple: turn the routine of concentration into a small adventure —
+every finished session moves your character forward, opens new places and drops loot.
+
+Platforms: iOS 17+, macOS 14+. No external dependencies.
+
+## What's inside
+
+- The timer counts down from an absolute `Date` instead of accumulating ticks, so it
+  survives backgrounding, screen lock and returning to the app.
+- Progression: XP per session (with a bonus for no pauses), levels, six locations
+  unlocked by level, loot in four rarities, seven achievements.
+- Dark-fantasy UI: full-screen location scenes, glows, a pulsing timer ring, and
+  per-location particles (fireflies, snow, embers, leaves).
+- Lofi focus music — tracks rotate from one session to the next.
+- RU/EN localization with instant switching in settings.
+- A statistics screen with a weekly focus-time chart.
+- Live Activity and Dynamic Island countdown (optional, a separate Widget Extension).
+- Respects system Reduce Motion and Dynamic Type.
+
+## Architecture
+
+MVVM with Observation (`@Observable`), SwiftData for storage (models designed for
+future CloudKit sync). Business logic lives in dedicated services: `TimerEngine`,
+`Progression`, `LootService`, `LocationService`, `AchievementService`,
+`StatsCalculator`, `AudioService`, `NotificationService`. The SwiftUI layer sits on
+top of them and shares a common theme and design tokens.
+
+## Build
+
+Open the project in Xcode and run the target you need (iPhone simulator or macOS).
+No external dependencies.
+
+## Status
+
+In development, MVP.
+
+## Assets and licenses
+
+- Lofi music — CC0 1.0 (public domain).
+- Location art — placeholder illustrations, swappable for final art.
+- Fonts — Space Grotesk and Manrope (OFL); system fonts are used if they are absent.

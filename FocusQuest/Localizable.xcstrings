@@ -1127,6 +1127,7 @@
       }
     },
     "set.demo" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1143,6 +1144,7 @@
       }
     },
     "set.demoH" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

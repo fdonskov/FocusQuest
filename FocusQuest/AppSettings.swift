@@ -25,7 +25,8 @@ final class AppSettings {
     init() {
         let d = UserDefaults.standard
         language = d.string(forKey: Keys.language) ?? AppSettings.defaultLanguage()
-        demoMode = d.object(forKey: Keys.demoMode) as? Bool ?? false
+        // Demo toggle is hidden from the UI for now; keep the mode off regardless of any stored value.
+        demoMode = false
         sound = d.object(forKey: Keys.sound) as? Bool ?? true
         notifications = d.object(forKey: Keys.notifications) as? Bool ?? true
         reduceMotion = d.object(forKey: Keys.reduceMotion) as? Bool ?? false
